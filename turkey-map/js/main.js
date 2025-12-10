@@ -7,19 +7,19 @@ var dragStartY = 0;
 
 /* SVG yükle */
 $(function () {
-  $.get("turkey-map/source/turkey-demo.svg", function (svg) {
+  $.get("./turkey-map/source/turkey-demo.svg", function (svg) {
     $("#turkey-map").append(svg);
   }, "text");
 });
 
-/* Hover il/ilçe bilgisi */
+/* Hover */
 $(document).on("mousemove", "#turkey-map svg #turkey > g > g", function () {
   var p = $(this).parent().attr("id");
   var d = $(this).attr("id");
   $(".hover-info").text(p + " / " + d);
 });
 
-/* Tıkla → boya, tekrar tıkla → eski haline dön */
+/* Tıkla → boya / tekrar tıkla → eski renk */
 $(document).on("click", "#turkey-map svg #turkey > g > g", function () {
   var $g = $(this);
   var $shape = $g.find("path, polygon");
@@ -32,7 +32,6 @@ $(document).on("click", "#turkey-map svg #turkey > g > g", function () {
 
     $shape.each(function () {
       var $s = $(this);
-
       if (!$s.attr("data-original-fill")) {
         $s.attr("data-original-fill", $s.css("fill"));
       }
@@ -58,12 +57,12 @@ $("#labelSize").on("input", function () {
   $(".district-label").attr("font-size", size);
 });
 
-/* Etiket göster */
+/* İsimleri göster/gizle */
 $("#toggleLabels").on("click", function () {
   $("#turkey-map").toggleClass("labels-visible");
 });
 
-/* SVG kaydet */
+/* SVG olarak kaydet */
 $("#saveSvg").on("click", function () {
   var svg = $("#turkey-map svg")[0];
   var serializer = new XMLSerializer();
@@ -81,7 +80,7 @@ $("#saveSvg").on("click", function () {
   URL.revokeObjectURL(url);
 });
 
-/* PNG kaydet */
+/* PNG olarak kaydet */
 $("#savePng").on("click", function () {
   var svg = $("#turkey-map svg")[0];
   var serializer = new XMLSerializer();
