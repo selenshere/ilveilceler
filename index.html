@@ -2,16 +2,13 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <title>Seçili İller İlçe Haritası</title>
+  <title>Harita Boyama</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- jQuery -->
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-
-  <!-- Harita CSS ve JS -->
-  <link rel="stylesheet" href="turkey-map/style/style.css">
-  <script src="turkey-map/js/main.js"></script>
+  <link rel="stylesheet" href="style/style.css">
 </head>
 <body>
+
   <!-- Üst kontrol paneli -->
   <div class="controls">
     <label>
@@ -21,27 +18,24 @@
 
     <label>
       Yazı boyutu:
-      <input type="range" id="labelSize" min="6" max="24" value="11">
-      <span id="labelSizeValue">11px</span>
+      <input type="range" id="labelSize" min="8" max="40" value="14">
+      <span id="labelSizeValue">14px</span>
     </label>
 
     <button id="toggleLabels" class="btn secondary">
       İsimleri Göster
     </button>
 
-    <button id="toggleBorders" class="btn secondary">
-      İl Sınırlarını Göster
-    </button>
-
     <button id="zoomIn" class="btn secondary">Yakınlaştır (+)</button>
     <button id="zoomOut" class="btn secondary">Uzaklaştır (-)</button>
+    <button id="zoomReset" class="btn secondary">Sıfırla</button>
 
     <button id="saveSvg" class="btn">
-      Daha sonra tekrar çalışmak için dosyay kaydet
+      Dosyayı Kaydet
     </button>
 
     <button id="savePng" class="btn">
-      Resim olarak kaydet
+      Resim Olarak Kaydet
     </button>
 
     <label>
@@ -52,9 +46,10 @@
 
   <!-- Harita alanı -->
   <div id="turkey-map" data-bg-color="#FFF5D0">
-    <!-- Sol üstte il + ilçe adı -->
     <div class="hover-info"></div>
-    <!-- SVG buraya JS ile yüklenecek -->
   </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>
