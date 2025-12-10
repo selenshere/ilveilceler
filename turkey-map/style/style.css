@@ -1,36 +1,39 @@
-/* Genel gövde */
+/* Genel gövde – arka plan */
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
-  background: #f3f4f6;
+  background: #FFF5D0;
+  overflow: hidden;
 }
 
-/* Üst kontrol paneli */
+/* Üst kontrol paneli – geniş oval bar */
 .controls {
-  max-width: 1400px;
-  margin: 20px auto 0;
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  right: 16px;
+  z-index: 20;
+
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  box-sizing: border-box;
 }
 
+/* Kontrol içindeki label’lar */
 .controls label {
-  font-size: 14px;
   display: flex;
   align-items: center;
-  gap: 8px;
-  background: #fff;
-  padding: 8px 12px;
-  border-radius: 6px;
-  box-shadow: 0 1px 3px rgba(0,0,0,.08);
-}
-
-.controls input[type="color"],
-.controls input[type="file"],
-.controls input[type="range"] {
+  gap: 6px;
   font-size: 13px;
+  white-space: nowrap;
 }
 
 .controls input[type="color"] {
@@ -38,111 +41,93 @@ body {
   height: 24px;
   padding: 0;
   border: none;
-  background: transparent;
-  cursor: pointer;
+  border-radius: 999px;
 }
 
+/* Slider daha geniş */
 .controls input[type="range"] {
-  width: 120px;
+  width: 140px;
+}
+
+#labelSizeValue {
+  font-weight: 500;
+  min-width: 42px;
+  text-align: right;
 }
 
 /* Butonlar */
 .btn {
   border: none;
-  border-radius: 6px;
-  padding: 8px 14px;
-  font-size: 14px;
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 13px;
   cursor: pointer;
-  background: #2563eb;
+  background: #3EA1AA;
   color: #fff;
-  box-shadow: 0 1px 3px rgba(0,0,0,.15);
-  transition: transform .1s, box-shadow .1s, background .1s;
+  font-weight: 500;
+  transition:
+    transform 0.08s ease,
+    box-shadow 0.08s ease,
+    background 0.1s ease;
 }
 
 .btn.secondary {
-  background: #6b7280;
+  background: #e5e7eb;
+  color: #111827;
 }
 
 .btn:hover {
   transform: translateY(-1px);
-  box-shadow: 0 2px 6px rgba(0,0,0,.18);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
 }
 
 .btn:active {
   transform: translateY(0);
-  box-shadow: 0 1px 3px rgba(0,0,0,.15);
+  box-shadow: none;
 }
 
-/* Harita ana kapsayıcı */
+/* Harita alanı – tam ekran ortalı */
 #turkey-map {
-  text-align: center;
-  background-color: #fff5d0;
-  min-height: 700px;
-  position: relative;
+  position: fixed;
+  inset: 0;
+  background: #FFF5D0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
 }
 
-/* Sol üst il + ilçe yazısı */
+/* SVG’nin ortada büyük görünmesi */
+#turkey-map svg {
+  width: 90%;
+  height: 80%;
+  max-width: 1400px;
+  max-height: 750px;
+  display: block;
+  margin: 0 auto;
+  transition: transform 0.08s ease-out;
+}
+
+/* Sol üstte il/ilçe adı */
 #turkey-map .hover-info {
   position: absolute;
-  left: 20px;
-  top: 20px;
-  background: rgba(255,255,255,0.8);
+  top: 80px;
+  left: 32px;
+  z-index: 30;
   padding: 6px 10px;
-  border-radius: 6px;
-  font-size: 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.9);
+  font-size: 13px;
   color: #111827;
-  box-shadow: 0 1px 3px rgba(0,0,0,.15);
-  z-index: 10;
-  min-width: 120px;
-  text-align: left;
+  pointer-events: none;
 }
 
-/* SVG kapsayıcısı */
-#turkey-map .map-container svg {
-  width: 100%;
-  max-width: 1400px;
-  height: 650px;
-  margin: 30px 0 50px;
-  transform-origin: center center;
-  transition: transform 0.15s ease-out;
-}
-
-/* İller (üst grup) */
-#turkey-map svg #turkey > g {
-  transition: all 0.2s;
-}
-
-/* İlçeler üzerine gelince hafif highlight */
-#turkey-map svg #turkey > g:hover > g path,
-#turkey-map svg #turkey > g:hover > g polygon,
-#turkey-map svg #turkey > g:hover > g g {
+/* İlçe üzerine gelince imleç */
+#turkey-map svg #turkey > g > g {
   cursor: pointer;
-  opacity: 0.85;
 }
 
-/* İlçelerin kendisi */
-#turkey-map svg #turkey > g > g path,
-#turkey-map svg #turkey > g > g polygon,
-#turkey-map svg #turkey > g > g g {
-  fill: #dfe7ee;           /* Açık gri, beyaz değil */
-  cursor: pointer;
-  stroke: none;
-}
-
-/* Orijinal kısaltma etiketlerini gizle */
-#turkey-map svg #turkey > g text {
-  display: none;
-}
-
-/* İl sınırları (stroke) açıkken */
-#turkey-map.borders-on svg #turkey > g > g path,
-#turkey-map.borders-on svg #turkey > g > g polygon {
-  stroke: #ffffff;
-  stroke-width: 0.7;
-}
-
-/* Dinamik etiketler (tam ilçe isimleri) */
+/* Etiketler */
 #turkey-map .district-label {
   fill: #000;
   text-anchor: middle;
@@ -151,7 +136,7 @@ body {
   display: none;
 }
 
-/* Etiket göster/gizle kontrolü */
+/* Etiket göster/gizle */
 #turkey-map.labels-visible .district-label {
   display: block !important;
 }
