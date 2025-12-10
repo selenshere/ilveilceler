@@ -158,16 +158,32 @@ $(function () {
     }
   );
 
-  // İlçeye tıklayınca renklendir
-  $(document).on(
-    "click",
-    "#turkey-map svg #turkey > g > g",
-    function () {
-      var $district = $(this);
+  /* Tıkla -> boya / tekrar tıkla -> eski haline dön */
+  $("#turkey-map").on("click", "svg #turkey > g > g", function () {
+    var $district = $(this);
+    var $shape = $district.find("polygon, path").first();
+    if (!$shape.length) return;
+
+    var colored = $district.attr("data-colored") === "1";
+
+    if (!colored) {
+      // Boyanmamış -> boya
+      if (!$district.attr("data-original-fill")) {
+        var originalFill = $shape.attr("fill");
+        if (typeof originalFill === "undefined") originalFill = "none";
+        $district.attr("data-original-fill", originalFill);
+      }
       var color = $("#colorPicker").val() || "#3EA1AA";
-      $district.find("path, polygon").css("fill", color);
+      $shape.attr("fill", color);
+      $district.attr("data-colored", "1");
+    } else {
+      // Boyanmış -> eski hale dön
+      var original = $district.attr("data-original-fill");
+      if (typeof original === "undefined") original = "none";
+      $shape.attr("fill", original);
+      $district.attr("data-colored", "0");
     }
-  );
+  })
 
   // İsimleri göster/gizle
   $("#toggleLabels").on("click", function () {
