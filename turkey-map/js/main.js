@@ -267,6 +267,11 @@ $(function () {
     if (!source.match(/^<\\?xml/)) {
       source = '<?xml version="1.0" standalone="no"?>\\r\\n' + source;
     }
+    
+    /* Resim olarak kaydet (PNG) */
+    $("#savePng").on("click", function () {
+      downloadPng();
+    });
 
     var blob = new Blob([source], {
       type: "image/svg+xml;charset=utf-8",
