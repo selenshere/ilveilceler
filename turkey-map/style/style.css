@@ -1,0 +1,157 @@
+/* Genel gövde */
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  background: #f3f4f6;
+}
+
+/* Üst kontrol paneli */
+.controls {
+  max-width: 1400px;
+  margin: 20px auto 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.controls label {
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  padding: 8px 12px;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0,0,0,.08);
+}
+
+.controls input[type="color"],
+.controls input[type="file"],
+.controls input[type="range"] {
+  font-size: 13px;
+}
+
+.controls input[type="color"] {
+  width: 40px;
+  height: 24px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.controls input[type="range"] {
+  width: 120px;
+}
+
+/* Butonlar */
+.btn {
+  border: none;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-size: 14px;
+  cursor: pointer;
+  background: #2563eb;
+  color: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,.15);
+  transition: transform .1s, box-shadow .1s, background .1s;
+}
+
+.btn.secondary {
+  background: #6b7280;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0,0,0,.18);
+}
+
+.btn:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 3px rgba(0,0,0,.15);
+}
+
+/* Harita ana kapsayıcı */
+#turkey-map {
+  text-align: center;
+  background-color: #fff5d0;
+  min-height: 700px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Sol üst il + ilçe yazısı */
+#turkey-map .hover-info {
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  background: rgba(255,255,255,0.8);
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #111827;
+  box-shadow: 0 1px 3px rgba(0,0,0,.15);
+  z-index: 10;
+  min-width: 120px;
+  text-align: left;
+}
+
+/* SVG kapsayıcısı */
+#turkey-map .map-container svg {
+  width: 100%;
+  max-width: 1400px;
+  height: 650px;
+  margin: 30px 0 50px;
+  transform-origin: center center;
+  transition: transform 0.15s ease-out;
+}
+
+/* İller (üst grup) */
+#turkey-map svg #turkey > g {
+  transition: all 0.2s;
+}
+
+/* İlçeler üzerine gelince hafif highlight */
+#turkey-map svg #turkey > g:hover > g path,
+#turkey-map svg #turkey > g:hover > g polygon,
+#turkey-map svg #turkey > g:hover > g g {
+  cursor: pointer;
+  opacity: 0.85;
+}
+
+/* İlçelerin kendisi */
+#turkey-map svg #turkey > g > g path,
+#turkey-map svg #turkey > g > g polygon,
+#turkey-map svg #turkey > g > g g {
+  fill: #dfe7ee;           /* Açık gri, beyaz değil */
+  cursor: pointer;
+  stroke: none;
+}
+
+/* Orijinal kısaltma etiketlerini gizle */
+#turkey-map svg #turkey > g text {
+  display: none;
+}
+
+/* İl sınırları (stroke) açıkken */
+#turkey-map.borders-on svg #turkey > g > g path,
+#turkey-map.borders-on svg #turkey > g > g polygon {
+  stroke: #ffffff;
+  stroke-width: 0.7;
+}
+
+/* Dinamik etiketler (tam ilçe isimleri) */
+#turkey-map .district-label {
+  fill: #000;
+  text-anchor: middle;
+  dominant-baseline: central;
+  pointer-events: none;
+  display: none;
+}
+
+/* Etiket göster/gizle kontrolü */
+#turkey-map.labels-visible .district-label {
+  display: block !important;
+}

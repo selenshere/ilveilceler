@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Seçili İller İlçe Haritası</title>
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+  <!-- Harita CSS ve JS -->
+  <link rel="stylesheet" href="turkey-map/style/style.css">
+  <script src="turkey-map/js/main.js"></script>
+</head>
+<body>
+  <!-- Üst kontrol paneli -->
+  <div class="controls">
+    <label>
+      Renk seç:
+      <input type="color" id="colorPicker" value="#3EA1AA">
+    </label>
+
+    <label>
+      Yazı boyutu:
+      <input type="range" id="labelSize" min="6" max="24" value="11">
+      <span id="labelSizeValue">11px</span>
+    </label>
+
+    <button id="toggleLabels" class="btn secondary">
+      İsimleri Göster
+    </button>
+
+    <button id="toggleBorders" class="btn secondary">
+      İl Sınırlarını Göster
+    </button>
+
+    <button id="zoomIn" class="btn secondary">Yakınlaştır (+)</button>
+    <button id="zoomOut" class="btn secondary">Uzaklaştır (-)</button>
+    <button id="zoomReset" class="btn secondary">Sıfırla</button>
+
+    <button id="saveSvg" class="btn">
+      SVG Olarak Kaydet
+    </button>
+
+    <label>
+      Hazır harita yükle (SVG):
+      <input type="file" id="loadSvg" accept=".svg,image/svg+xml">
+    </label>
+  </div>
+
+  <!-- Harita alanı -->
+  <div id="turkey-map" data-bg-color="#FFF5D0">
+    <!-- Sol üstte il + ilçe adı -->
+    <div class="hover-info"></div>
+    <!-- SVG buraya JS ile yüklenecek -->
+  </div>
+</body>
+</html>
